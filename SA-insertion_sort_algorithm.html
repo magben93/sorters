@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertion Sort</title>
+    <link rel="stylesheet" href="SA-sorters.css">
+</head>
+
+<body>
+    <header>
+        <H1>Insertion Sort</H1>
+    </header>
+    <div style="display: flex; justify-content: center;">
+        <p id="indexVis">index :</p>
+        <p id="maxIndexVis">maxIndex :</p>
+        <p id="numOfData">numOfData : </p>
+        <p id="speedValue">speedValue :</p>
+    </div>
+
+    <section class="container">
+        //<p class="data" id="0" style="padding: 1px 1px 0px 1px;">00</p>
+    </section>
+
+    <script>
+        dataArray = []
+        let numOfData = 50
+        let speedValue = 20
+        for (let i = 0; i < numOfData; i++) {
+            dataArray.push(Math.floor(Math.random() * 80) + 5)
+        }
+        loadArray(dataArray, 0, 0)
+
+        document.getElementById('numOfData').innerHTML = 'numOfData :' + numOfData
+        document.getElementById('speedValue').innerHTML = 'speedValue :' + speedValue
+
+        let index = 0
+        let maxIndex = 0
+        sorTing = setInterval(() => {
+            if (index < dataArray.length && dataArray[index] < dataArray[index - 1]) {
+                [dataArray[index], dataArray[index - 1]] = [dataArray[index - 1], dataArray[index]];
+                index--;
+                document.getElementById('indexVis').innerHTML = 'index :' + index
+                loadArray(dataArray, index)
+
+            }
+            else if (index > dataArray.length - 1) {
+                clearInterval(sorTing);
+            }
+            else {
+                if (index < maxIndex) {
+                    index++
+                    index = maxIndex
+                    document.getElementById('indexVis').innerHTML = 'index :' + index
+                }
+                else {
+
+                    index++
+                    maxIndex++
+                    document.getElementById('indexVis').innerHTML = 'index :' + index
+                    document.getElementById('maxIndexVis').innerHTML = 'maxIndex :' + index
+                    loadArray(dataArray, index)
+                }
+            }
+        }, speedValue);
+
+        function loadArray(arr, j, k) {
+            document.querySelector('.container').innerHTML = ''
+            for (let i = 0; i < arr.length; i++) {
+                document.querySelector('.container').innerHTML += '<div class="data" id="' + i + '" style="padding: 0px 1px ' + arr[i] * 5 + 'px 1px;"></div>';
+            }
+            document.getElementById(j).classList.toggle('open')
+            document.getElementById(k).classList.toggle('open')
+
+        }
+    </script>
+</body>
+
+</html>
